@@ -1,0 +1,17 @@
+{
+  "name": "CircularBot",
+  "version": "1.0",
+  "authors": [
+    "N.J.H",
+    "A.F.",
+    "F.C."
+  ],
+  "description": "A bot that supposedly orbits around another bot",
+  "homepage": "",
+  "countryCodes": [
+    "us",
+    "dk"
+  ],
+  "platform": ".Net 9.0",
+  "programmingLang": "C# 10.0"
+}
