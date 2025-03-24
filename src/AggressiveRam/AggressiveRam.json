@@ -1,0 +1,17 @@
+{
+  "name": "Aggressive Ramming Fire",
+  "version": "1.0",
+  "authors": [
+    "N.J.H",
+    "A.F.",
+    "F.C."
+  ],
+  "description": "Drives at bots trying to ram them while shooting at them",
+  "homepage": "",
+  "countryCodes": [
+    "us",
+    "dk"
+  ],
+  "platform": ".Net 9.0",
+  "programmingLang": "C# 10.0"
+}
