@@ -1,0 +1,17 @@
+{
+  "name": "GreedyBot",
+  "version": "1.0",
+  "authors": [
+    "N.J.H",
+    "A.F",
+    "F.C"
+  ],
+  "description": "A sample bot that spins in a circles, firing hard when an enemy is detected.",
+  "homepage": "",
+  "countryCodes": [
+    "us",
+    "dk"
+  ],
+  "platform": ".Net 6.0",
+  "programmingLang": "C# 10.0"
+}

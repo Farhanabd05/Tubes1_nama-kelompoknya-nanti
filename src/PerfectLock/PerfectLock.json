@@ -1,0 +1,16 @@
+{
+    "name": "PerfectLock",
+    "version": "1.0",
+    "authors": [
+      "N.J.H",
+      "F.C",
+      "A.F"
+    ],
+    "description": "A bot that implements a perfect radar lock strategy - it locks onto an enemy and follows them precisely by reversing radar movement.",
+    "homepage": "",
+    "countryCodes": [
+      "id"
+    ],
+    "platform": ".Net 9.0",
+    "programmingLang": "C# 10.0"
+  }
