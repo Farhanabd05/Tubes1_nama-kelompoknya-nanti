@@ -12,13 +12,13 @@ public class GreedyBot : Bot
     private const double MAX_FIRE_POWER = 3.0;
     
     // Variables
-    private ScannedBotEvent currentTarget;
-    private int missedShots = 0;
-    private int hitCount = 0;
-    private double lastEnemyEnergy = 100;
-    private int moveDirection = 1;
-    private Random random = new Random();
-    
+    private ScannedBotEvent currentTarget; // Musuh yang lagi dibidik
+    private int missedShots = 0; // Berapa kali kita meleset, biar gak malu-maluin
+    private int hitCount = 0; // Berapa kali kena musuh, buat pamer
+    private double lastEnemyEnergy = 100; // Energi terakhir musuh, buat ngecek apa dia nembak apa kagak
+    private int moveDirection = 1; // Arah gerak, 1 maju, -1 mundur
+    private Random random = new Random(); // Buat bikin keputusan random, biar gak gampang ditebak
+
     static void Main(string[] args)
     {
         new GreedyBot().Start();
@@ -41,28 +41,31 @@ public class GreedyBot : Bot
         AdjustGunForBodyTurn = true;
         AdjustRadarForGunTurn = true;
         
+         // Loop utama, jalan terus sampe game berakhir
         while (IsRunning)
         {
-            Console.WriteLine($"\nTurn {TurnNumber} - Energy: {Energy}");
-            TurnRadarRight(360);
+            Console.WriteLine($"\nTurn {TurnNumber} - Energi: {Energy}");
+            TurnRadarRight(360); // Scan sekeliling, cari musuh
             
+            // Kalo gak ada musuh, jalan random aja
             if (currentTarget == null)
             {
-                Console.WriteLine("No target detected. Executing random search pattern");
-                if (random.Next(10) < 3)
+                Console.WriteLine("Gak ada musuh nih, jalan random aja dah");
+                if (random.Next(10) < 3) // 30% chance buat ganti arah
                 {
                     moveDirection = -moveDirection;
-                    Console.WriteLine($"New movement direction: {moveDirection}");
+                    Console.WriteLine($"Ganti arah jalan: {moveDirection}");
                 }
                 TurnRight(random.Next(90) * moveDirection);
                 Forward(100 * moveDirection);
             }
             
-            AvoidWalls();
-            Go();
+            AvoidWalls(); // Hindari tembok biar gak nabrak mulu
+            Go(); // Jalanin semua perintah yang udah diset
         }
     }
     
+    // Method buat hindari tembok, penting nih bro
     private void AvoidWalls()
     {
         double minDistance = Math.Min(
@@ -81,7 +84,7 @@ public class GreedyBot : Bot
             Console.WriteLine($"Moving towards center at bearing {centerBearing}°");
         }
     }
-
+    // Event handler pas nemu musuh
     public override void OnScannedBot(ScannedBotEvent e)
     {
         Console.WriteLine($"Scanned target: {e.ScannedBotId} at ({e.X}, {e.Y})");
@@ -142,7 +145,9 @@ public class GreedyBot : Bot
             Forward(100);
         }
     }
-    
+
+
+    // Method buat nentuin daya tembak optimal
     private double GetOptimalFirePower(double distance)
     {
         Console.WriteLine($"Calculating firepower for distance: {distance}");
@@ -150,7 +155,7 @@ public class GreedyBot : Bot
                distance < 300 ? MID_FIRE_POWER : 
                MIN_FIRE_POWER;
     }
-
+    // Event handler pas peluru kita kena musuh,
     public override void OnBulletHit(BulletHitBotEvent e)
     {
         Console.WriteLine($"Successful hit on {e.VictimId}");
@@ -160,6 +165,7 @@ public class GreedyBot : Bot
         Rescan();
     }
 
+    // Event handler pas peluru kita kena musuh,
     public override void OnBulletHitWall(BulletHitWallEvent e)
     {
         Console.WriteLine($"Missed shot at ({e.Bullet.X}, {e.Bullet.Y})");
@@ -172,6 +178,7 @@ public class GreedyBot : Bot
         }
     }
 
+    // Event handler pas peluru kita kena musuh,
     public override void OnHitByBullet(HitByBulletEvent e)
     {
         Console.WriteLine($"Hit by {e.Bullet.OwnerId}'s bullet");
@@ -182,6 +189,7 @@ public class GreedyBot : Bot
         Console.WriteLine($"Evasion angle: {evasionAngle}° | New direction: {moveDirection}");
     }
 
+    // Event handler pas peluru kita kena musuh,
     public override void OnHitBot(HitBotEvent e)
     {
         Console.WriteLine($"Collision with {e.VictimId}");
@@ -190,6 +198,7 @@ public class GreedyBot : Bot
         Console.WriteLine($"Retreating from collision at bearing {BearingTo(e.X, e.Y)}°");
     }
 
+    // Event handler pas kita nabrak tembok, aduh!
     public override void OnHitWall(HitWallEvent e)
     {
         Console.WriteLine("Wall collision detected");
@@ -200,3 +209,4 @@ public class GreedyBot : Bot
         Console.WriteLine($"Recovery bearing: {centerBearing}°");
     }
 }
+
